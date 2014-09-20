@@ -1,0 +1,76 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="polymer-typeahead">
+  <template id="autocomplete-template">
+    <style>
+      .autocomplete-box {
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        background: #fff;
+        width: 300px;
+        outline: none;
+        min-height: 25px;
+        font: 16px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+        text-indent: 4px;
+      }
+      .autocomplete-box:focus {
+        border-color: #51a7e8;
+      }
+      .results-listing-container {
+        width: 300px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+      }
+      #inner-editor {
+       
+      }
+      .list-item {
+        font: 16px arial,sans-serif;
+        text-indent: 4px;
+        padding: 4px;
+        margin-bottom: 2px;
+      }
+      .autocomplete-suggestion:hover {
+        background: #eee;
+      }
+    </style>
+
+
+    <form>
+      <input type="text" aria-autocomplete="list" aria-expanded="false" aria-label="autocomplete-text-field" class="autocomplete-box" value="{{searchterm}}">
+        <div id="inner-editor"></div>
+        <div class="results-listing-container">
+          <ul class="results-list" id="#autocomplete-list" style="list-style-type:none; margin: 0; padding: 0;">
+            <!-- <li class="list-item autocomplete-suggestion">result 3</li> -->
+          </ul>
+        </div>
+      </input>
+    </form>
+  </template>
+  <script>
+    Polymer({
+      observe: {
+        searchterm: 'request',
+      },
+      request: function() {
+        //make an ajax call here;
+        var results = ['one', 'two', 'three'];
+        var suggestions = results.map(function(result) {
+           var suggestion = document.createElement('li');
+           suggestion.textContent = result;
+           suggestion.style.className = "list-item autocomplete-suggestion";
+           return suggestion;
+        });
+        var resultsList = this.shadowRoot.getElementById('#autocomplete-list');
+        while (resultsList.firstChild) {
+           resultsList.removeChild(resultsList.firstChild);
+        }
+        suggestions.forEach(function(suggestion) {
+          resultsList.appendChild(suggestion);
+        });
+      },
+      ready: function() {
+      }
+    });
+  </script>
+
+</polymer-element>

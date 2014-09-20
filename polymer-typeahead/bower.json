@@ -1,0 +1,30 @@
+{
+  "name": "polymer-typeahead",
+  "version": "0.0.0",
+  "homepage": "https://github.com/hrishikeshs/Polymer-Playground",
+  "description": "autocomplete widget for use with polymer",
+  "main": "elements/polymer-typeahead.html",
+  "keywords": [
+    "autocomplete",
+    "widget",
+    "polymer",
+    "autocomplete",
+    "polymer",
+    "typeahead",
+    "polymer-ajax"
+  ],
+  "authors": [
+    "Hrishikesh S"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.4.1"
+  }
+}
