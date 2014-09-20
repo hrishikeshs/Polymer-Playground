@@ -52,21 +52,28 @@
         searchterm: 'request',
       },
       request: function() {
-        //make an ajax call here;
+       //make an ajax call here;
+       var resultsList = this.shadowRoot.getElementById('#autocomplete-list');
+       if(this.searchterm === "") {
+          this.clearSuggestions(resultsList);
+          return;
+        }
         var results = ['one', 'two', 'three'];
         var suggestions = results.map(function(result) {
            var suggestion = document.createElement('li');
            suggestion.textContent = result;
-           suggestion.style.className = "list-item autocomplete-suggestion";
+           suggestion.className = "list-item autocomplete-suggestion";
            return suggestion;
         });
-        var resultsList = this.shadowRoot.getElementById('#autocomplete-list');
-        while (resultsList.firstChild) {
-           resultsList.removeChild(resultsList.firstChild);
-        }
+        this.clearSuggestions(resultsList);
         suggestions.forEach(function(suggestion) {
           resultsList.appendChild(suggestion);
         });
+      },
+      clearSuggestions: function(node) {
+        while (node.firstChild) {
+           node.removeChild(node.firstChild);
+        }
       },
       ready: function() {
       }
