@@ -32,13 +32,14 @@
       .autocomplete-suggestion:hover {
         background: #eee;
       }
+      .autocomplete-suggestion:focus {
+        background: #eee;
+      } 
     </style>
-
-
     <form>
       <input type="text" aria-autocomplete="list" aria-expanded="false" aria-label="autocomplete-text-field" class="autocomplete-box" value="{{searchterm}}">
         <div id="inner-editor"></div>
-        <div class="results-listing-container">
+        <div class="results-listing-container" style="display:none; position:absolute;zIndex:900;">
           <ul class="results-list" id="#autocomplete-list" style="list-style-type:none; margin: 0; padding: 0;">
             <!-- <li class="list-item autocomplete-suggestion">result 3</li> -->
           </ul>
@@ -68,16 +69,32 @@
         this.clearSuggestions(resultsList);
         suggestions.forEach(function(suggestion) {
           resultsList.appendChild(suggestion);
-        });
+       });
+       var resultsContainer = this.shadowRoot.querySelector('.results-listing-container');
+       resultsContainer.style.display = "block";
+       resultsContainer.querySelector('ul').firstChild.focus();
       },
       clearSuggestions: function(node) {
         while (node.firstChild) {
            node.removeChild(node.firstChild);
         }
       },
-      ready: function() {
-      }
-    });
+    ready: function() {
+     var input = this.shadowRoot.querySelector('input');
+     input.addEventListener('keydown', function(keyevent) {
+      // debugger;
+       if(keyevent.keyIdentifier === "Down") {
+         var resultsList = this.shadowRoot.querySelector('.results-listing-container');
+         resultsList.style.display = "block";
+         var results = resultsList.querySelector('ul').firstChild;
+         results.style.background = "blue";
+         resultsList.querySelector('ul').addEventListener('keydown', function() {
+           console.log("ha!");
+         });
+       }
+      }.bind(this));
+    }
+   });
   </script>
 
 </polymer-element>
