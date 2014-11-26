@@ -2,40 +2,7 @@
 
 <polymer-element name="polymer-typeahead">
   <template id="autocomplete-template">
-    <style>
-      .autocomplete-box {
-        border-radius: 3px;
-        border: 1px solid #ccc;
-        background: #fff;
-        width: 300px;
-        outline: none;
-        min-height: 25px;
-        font: 16px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-        text-indent: 4px;
-      }
-      .autocomplete-box:focus {
-        border-color: #51a7e8;
-      }
-      .results-listing-container {
-        width: 300px;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-      }
-      #inner-editor {
-       
-      }
-      .list-item {
-        font: 16px arial,sans-serif;
-        text-indent: 4px;
-        padding: 4px;
-        margin-bottom: 2px;
-      }
-      .autocomplete-suggestion:hover {
-        background: #eee;
-      }
-      .autocomplete-suggestion:focus {
-        background: #eee;
-      } 
-    </style>
+    <link rel="stylesheet" href="./typeahead.css">
     <form>
       <input type="text" aria-autocomplete="list" aria-expanded="false" aria-label="autocomplete-text-field" class="autocomplete-box" value="{{searchterm}}">
         <div id="inner-editor"></div>
@@ -47,54 +14,5 @@
       </input>
     </form>
   </template>
-  <script>
-    Polymer({
-      observe: {
-        searchterm: 'request',
-      },
-      request: function() {
-       //make an ajax call here;
-       var resultsList = this.shadowRoot.getElementById('#autocomplete-list');
-       if(this.searchterm === "") {
-          this.clearSuggestions(resultsList);
-          return;
-        }
-        var results = ['one', 'two', 'three'];
-        var suggestions = results.map(function(result) {
-           var suggestion = document.createElement('li');
-           suggestion.textContent = result;
-           suggestion.className = "list-item autocomplete-suggestion";
-           return suggestion;
-        });
-        this.clearSuggestions(resultsList);
-        suggestions.forEach(function(suggestion) {
-          resultsList.appendChild(suggestion);
-       });
-       var resultsContainer = this.shadowRoot.querySelector('.results-listing-container');
-       resultsContainer.style.display = "block";
-       resultsContainer.querySelector('ul').firstChild.focus();
-      },
-      clearSuggestions: function(node) {
-        while (node.firstChild) {
-           node.removeChild(node.firstChild);
-        }
-      },
-    ready: function() {
-     var input = this.shadowRoot.querySelector('input');
-     input.addEventListener('keydown', function(keyevent) {
-      // debugger;
-       if(keyevent.keyIdentifier === "Down") {
-         var resultsList = this.shadowRoot.querySelector('.results-listing-container');
-         resultsList.style.display = "block";
-         var results = resultsList.querySelector('ul').firstChild;
-         results.style.background = "blue";
-         resultsList.querySelector('ul').addEventListener('keydown', function() {
-           console.log("ha!");
-         });
-       }
-      }.bind(this));
-    }
-   });
-  </script>
-
+  <script src="./typeahead.js"></script>
 </polymer-element>

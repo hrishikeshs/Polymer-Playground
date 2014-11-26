@@ -1,0 +1,32 @@
+.autocomplete-box {
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  background: #fff;
+  width: 300px;
+  outline: none;
+  min-height: 25px;
+  font: 16px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  text-indent: 4px;
+}
+.autocomplete-box:focus {
+  border-color: #51a7e8;
+}
+.results-listing-container {
+  width: 300px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+}
+#inner-editor {
+  
+}
+.list-item {
+  font: 16px arial,sans-serif;
+  text-indent: 4px;
+  padding: 4px;
+  margin-bottom: 2px;
+}
+.autocomplete-suggestion:hover {
+  background: #eee;
+}
+.autocomplete-suggestion:focus {
+  background: #eee;
+} 
